@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Arsip Online</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        padding: 20px;
+    }
+
+    h2 { text-align: center; }
+
+    .category, .item {
+        background: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+    }
+
+    .category:hover, .item:hover {
+        background: #e3e3e3;
+    }
+
+    .hidden { display: none; }
+
+    .detail-box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 15px;
+        border: 1px solid #ccc;
+    }
+
+    .detail-box img {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h2>📁 Arsip Online</h2>
+
+<!-- ===================== -->
+<!--   LIST KATEGORI       -->
+<!-- ===================== -->
+<div onclick="toggleCategory('doc')" class="category">📄 Arsip Dokumen</div>
+<div onclick="toggleCategory('foto')" class="category">🖼 Arsip Foto</div>
+<div onclick="toggleCategory('barang')" class="category">📦 Arsip Barang</div>
+
+<!-- ===================== -->
+<!--   SUBMENU DOKUMEN     -->
+<!-- ===================== -->
+<div id="doc" class="hidden">
+    <div onclick="showDetail('dokumen1')" class="item">Dokumen KK</div>
+    <div onclick="showDetail('dokumen2')" class="item">Dokumen KTP</div>
+</div>
+
+<!-- ===================== -->
+<!--   SUBMENU FOTO        -->
+<!-- ===================== -->
+<div id="foto" class="hidden">
+    <div onclick="showDetail('foto1')" class="item">Foto Acara 2023</div>
+    <div onclick="showDetail('foto2')" class="item">Foto Keluarga</div>
+</div>
+
+<!-- ===================== -->
+<!--   SUBMENU BARANG      -->
+<!-- ===================== -->
+<div id="barang" class="hidden">
+    <div onclick="showDetail('barang1')" class="item">Laptop Inventaris</div>
+    <div onclick="showDetail('barang2')" class="item">Kamera DSLR</div>
+</div>
+
+<!-- ===================== -->
+<!--  BOX DETAIL ARSIP     -->
+<!-- ===================== -->
+<div id="detailBox" class="detail-box hidden">
+    <img id="detailImg" src="" alt="">
+    <h3 id="detailJudul"></h3>
+    <p id="detailData"></p>
+</div>
+
+<script>
+function toggleCategory(id) {
+    document.getElementById(id).classList.toggle("hidden");
+}
+
+// DATA ARSIP
+const dataArsip = {
+    dokumen1: {
+        judul: "Dokumen KK",
+        foto: "https://via.placeholder.com/300x200.png?text=Foto+KK",
+        data: "Nomor: 1234567890<br>Alamat: Jalan Merpati, Bandung"
+    },
+    dokumen2: {
+        judul: "Dokumen KTP",
+        foto: "https://via.placeholder.com/300x200.png?text=Foto+KTP",
+        data: "Nama: Budi Setiawan<br>NIK: 321987654321"
+    },
+    foto1: {
+        judul: "Foto Acara 2023",
+        foto: "https://via.placeholder.com/300x200.png?text=Acara+2023",
+        data: "Lokasi: Jakarta<br>Tanggal: 11 Januari 2023"
+    },
+    foto2: {
+        judul: "Foto Keluarga",
+        foto: "https://via.placeholder.com/300x200.png?text=Foto+Keluarga",
+        data: "Jumlah Anggota: 4 orang"
+    },
+    barang1: {
+        judul: "Laptop Inventaris",
+        foto: "https://via.placeholder.com/300x200.png?text=Laptop",
+        data: "Merk: Lenovo<br>Kondisi: Baik"
+    },
+    barang2: {
+        judul: "Kamera DSLR",
+        foto: "https://via.placeholder.com/300x200.png?text=Kamera+DSLR",
+        data: "Merk: Canon<br>Kondisi: Sangat Baik"
+    }
+};
+
+function showDetail(id) {
+    document.getElementById("detailBox").classList.remove("hidden");
+    document.getElementById("detailImg").src = dataArsip[id].foto;
+    document.getElementById("detailJudul").innerHTML = dataArsip[id].judul;
+    document.getElementById("detailData").innerHTML = dataArsip[id].data;
+}
+</script>
+
+</body>
+</html>
