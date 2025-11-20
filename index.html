@@ -1,138 +1,152 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Arsip Online</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsip PT</title>
 
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        background: #f3f3f3;
+    }
+
+    .page {
+        display: none;
         padding: 20px;
     }
 
-    h2 { text-align: center; }
+    .active {
+        display: block;
+    }
 
-    .category, .item {
+    h2 {
+        text-align: center;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .box {
         background: white;
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 10px;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        text-align: center;
         cursor: pointer;
-        border: 1px solid #ccc;
+        transition: 0.2s;
+        font-size: 18px;
     }
 
-    .category:hover, .item:hover {
-        background: #e3e3e3;
+    .box:hover {
+        background: #dfe6e9;
     }
 
-    .hidden { display: none; }
-
-    .detail-box {
+    .spec {
+        margin-bottom: 20px;
+        padding: 15px;
         background: white;
-        padding: 20px;
         border-radius: 10px;
-        margin-top: 15px;
-        border: 1px solid #ccc;
     }
 
-    .detail-box img {
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .gallery img {
         width: 100%;
-        max-width: 300px;
+        border-radius: 10px;
+        border: 1px solid #bbb;
+    }
+
+    .back {
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background: #0984e3;
         border-radius: 8px;
-        margin-bottom: 10px;
+        display: inline-block;
+        color: white;
+        cursor: pointer;
     }
 </style>
 </head>
 <body>
 
-<h2>📁 Arsip Online</h2>
+<!-- ================ PAGE 1 - Daftar PT =================== -->
+<div id="page1" class="page active">
+    <h2>Daftar PT</h2>
 
-<!-- ===================== -->
-<!--   LIST KATEGORI       -->
-<!-- ===================== -->
-<div onclick="toggleCategory('doc')" class="category">📄 Arsip Dokumen</div>
-<div onclick="toggleCategory('foto')" class="category">🖼 Arsip Foto</div>
-<div onclick="toggleCategory('barang')" class="category">📦 Arsip Barang</div>
-
-<!-- ===================== -->
-<!--   SUBMENU DOKUMEN     -->
-<!-- ===================== -->
-<div id="doc" class="hidden">
-    <div onclick="showDetail('dokumen1')" class="item">Dokumen KK</div>
-    <div onclick="showDetail('dokumen2')" class="item">Dokumen KTP</div>
+    <div class="grid">
+        <div class="box" onclick="openPage('page2', 'PT A')">PT A</div>
+        <div class="box" onclick="openPage('page2', 'PT B')">PT B</div>
+        <div class="box" onclick="openPage('page2', 'PT C')">PT C</div>
+        <div class="box" onclick="openPage('page2', 'PT D')">PT D</div>
+        <div class="box" onclick="openPage('page2', 'PT E')">PT E</div>
+        <div class="box" onclick="openPage('page2', 'PT F')">PT F</div>
+    </div>
 </div>
 
-<!-- ===================== -->
-<!--   SUBMENU FOTO        -->
-<!-- ===================== -->
-<div id="foto" class="hidden">
-    <div onclick="showDetail('foto1')" class="item">Foto Acara 2023</div>
-    <div onclick="showDetail('foto2')" class="item">Foto Keluarga</div>
+<!-- ================ PAGE 2 - Daftar Unit =================== -->
+<div id="page2" class="page">
+    <div class="back" onclick="openPage('page1')">← Kembali</div>
+    <h2 id="judulPT">PT A</h2>
+
+    <div class="grid">
+        <div class="box" onclick="openPage('page3', 'Boiler 1')">Boiler 1</div>
+        <div class="box" onclick="openPage('page3', 'Boiler 2')">Boiler 2</div>
+        <div class="box" onclick="openPage('page3', 'Boiler 3')">Boiler 3</div>
+    </div>
 </div>
 
-<!-- ===================== -->
-<!--   SUBMENU BARANG      -->
-<!-- ===================== -->
-<div id="barang" class="hidden">
-    <div onclick="showDetail('barang1')" class="item">Laptop Inventaris</div>
-    <div onclick="showDetail('barang2')" class="item">Kamera DSLR</div>
-</div>
+<!-- ================ PAGE 3 - Detail Unit =================== -->
+<div id="page3" class="page">
+    <div class="back" onclick="openPage('page2')">← Kembali</div>
+    <h2 id="judulUnit">Boiler 1</h2>
 
-<!-- ===================== -->
-<!--  BOX DETAIL ARSIP     -->
-<!-- ===================== -->
-<div id="detailBox" class="detail-box hidden">
-    <img id="detailImg" src="" alt="">
-    <h3 id="detailJudul"></h3>
-    <p id="detailData"></p>
+    <div class="spec">
+        <b>Spesifikasi:</b><br>
+        Tipe : <span id="tipe">-</span><br>
+        Model : <span id="model">-</span><br>
+        Kapasitas : <span id="kapasitas">-</span>
+    </div>
+
+    <div class="gallery">
+        <img src="https://via.placeholder.com/200" alt="">
+        <img src="https://via.placeholder.com/200" alt="">
+        <img src="https://via.placeholder.com/200" alt="">
+        <img src="https://via.placeholder.com/200" alt="">
+        <img src="https://via.placeholder.com/200" alt="">
+        <img src="https://via.placeholder.com/200" alt="">
+    </div>
 </div>
 
 <script>
-function toggleCategory(id) {
-    document.getElementById(id).classList.toggle("hidden");
-}
+function openPage(page, value = null) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
 
-// DATA ARSIP
-const dataArsip = {
-    dokumen1: {
-        judul: "Dokumen KK",
-        foto: "https://via.placeholder.com/300x200.png?text=Foto+KK",
-        data: "Nomor: 1234567890<br>Alamat: Jalan Merpati, Bandung"
-    },
-    dokumen2: {
-        judul: "Dokumen KTP",
-        foto: "https://via.placeholder.com/300x200.png?text=Foto+KTP",
-        data: "Nama: Budi Setiawan<br>NIK: 321987654321"
-    },
-    foto1: {
-        judul: "Foto Acara 2023",
-        foto: "https://via.placeholder.com/300x200.png?text=Acara+2023",
-        data: "Lokasi: Jakarta<br>Tanggal: 11 Januari 2023"
-    },
-    foto2: {
-        judul: "Foto Keluarga",
-        foto: "https://via.placeholder.com/300x200.png?text=Foto+Keluarga",
-        data: "Jumlah Anggota: 4 orang"
-    },
-    barang1: {
-        judul: "Laptop Inventaris",
-        foto: "https://via.placeholder.com/300x200.png?text=Laptop",
-        data: "Merk: Lenovo<br>Kondisi: Baik"
-    },
-    barang2: {
-        judul: "Kamera DSLR",
-        foto: "https://via.placeholder.com/300x200.png?text=Kamera+DSLR",
-        data: "Merk: Canon<br>Kondisi: Sangat Baik"
+    // Jika buka page PT
+    if (page === "page2" && value) {
+        document.getElementById("judulPT").innerText = value;
     }
-};
 
-function showDetail(id) {
-    document.getElementById("detailBox").classList.remove("hidden");
-    document.getElementById("detailImg").src = dataArsip[id].foto;
-    document.getElementById("detailJudul").innerHTML = dataArsip[id].judul;
-    document.getElementById("detailData").innerHTML = dataArsip[id].data;
+    // Jika buka page unit
+    if (page === "page3" && value) {
+        document.getElementById("judulUnit").innerText = value;
+
+        // Contoh data dinamis
+        document.getElementById("tipe").innerText = "Steam";
+        document.getElementById("model").innerText = "XYZ-109";
+        document.getElementById("kapasitas").innerText = "5000 L";
+    }
 }
 </script>
 
