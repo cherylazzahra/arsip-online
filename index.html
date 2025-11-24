@@ -3,30 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsip Sederhana</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Arsip Foto Sederhana</title>
+    <style>
+        /* --- CSS Styling --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .arsip-tombol {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .arsip-tombol:hover {
+            background-color: #0056b3;
+        }
+
+        .arsip-konten {
+            padding-left: 20px;
+            overflow: hidden;
+            display: none; /* Awalnya disembunyikan */
+            background-color: #e9ecef;
+            border-left: 2px solid #007bff;
+            margin-bottom: 10px;
+        }
+
+        .sub-tombol {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            width: 90%;
+            text-align: left;
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        .sub-tombol:hover {
+            background-color: #5a6268;
+        }
+
+        .foto-detail {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 10px;
+            display: none; /* Awalnya disembunyikan */
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .foto-detail img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .foto-detail p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Arsip Sederhana</h1>
-    <div id="archive">
-        <!-- Tombol utama arsip -->
-        <button class="main-btn" onclick="showSubButtons('kategori1')">Kategori 1</button>
-        <button class="main-btn" onclick="showSubButtons('kategori2')">Kategori 2</button>
-        <!-- Tambah lebih banyak tombol utama di sini -->
-    </div>
+
+    <h1>Arsip Foto Proyek 📸</h1>
+
+    <button class="arsip-tombol" onclick="toggleKonten('arsip1')">
+        Kategori Utama: Proyek Pembangunan
+    </button>
     
-    <div id="sub-buttons" style="display: none;">
-        <!-- Sub-tombol akan diisi oleh JavaScript -->
-    </div>
-    
-    <div id="photo-modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="photo" src="" alt="Foto">
-            <p id="data"></p>
+    <div class="arsip-konten" id="arsip1">
+        
+        <button class="sub-tombol" onclick="toggleKonten('sub1_foto1')">
+            Sub-Kategori: Dokumentasi Lapangan Bulan Mei
+        </button>
+        
+        <div class="foto-detail" id="sub1_foto1">
+            <h3>Detail Foto 1: Pondasi</h3>
+            <img src="https://via.placeholder.com/400x300?text=FOTO+1" alt="Foto Pondasi">
+            <p><strong>Tanggal:</strong> 2024-05-15</p>
+            <p><strong>Lokasi:</strong> Sektor Alpha</p>
+            <p><strong>Keterangan:</strong> Pemeriksaan pondasi tiang pancang. Kondisi sangat baik.</p>
         </div>
+
+        <button class="sub-tombol" onclick="toggleKonten('sub1_foto2')">
+            Sub-Kategori: Gambar Desain Awal
+        </button>
+        
+        <div class="foto-detail" id="sub1_foto2">
+            <h3>Detail Foto 2: Denah Dasar</h3>
+            <img src="https://via.placeholder.com/400x300?text=FOTO+2" alt="Foto Denah Dasar">
+            <p><strong>Tanggal:</strong> 2024-02-01</p>
+            <p><strong>Arsitek:</strong> Studio XYZ</p>
+            <p><strong>Keterangan:</strong> Versi final denah lantai dasar sebelum persetujuan.</p>
+        </div>
+        
     </div>
+
+    <button class="arsip-tombol" onclick="toggleKonten('arsip2')">
+        Kategori Utama: Arsip Keuangan
+    </button>
     
-    <script src="script.js"></script>
+    <div class="arsip-konten" id="arsip2">
+        <p>Konten arsip keuangan akan disematkan di sini.</p>
+    </div>
+
+    <script>
+        function toggleKonten(id) {
+            var konten = document.getElementById(id);
+            if (konten.style.display === "block") {
+                konten.style.display = "none";
+            } else {
+                konten.style.display = "block";
+            }
+        }
+    </script>
+
 </body>
 </html>
