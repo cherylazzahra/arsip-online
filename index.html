@@ -1,228 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arsip PT</title>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f3f3f3;
-    }
-
-    .page {
-        display: none;
-        padding: 20px;
-    }
-
-    .active {
-        display: block;
-    }
-
-    h2 {
-        text-align: center;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        margin-top: 20px;
-    }
-
-    .box {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #ccc;
-        text-align: center;
-        cursor: pointer;
-        transition: 0.2s;
-        font-size: 18px;
-    }
-
-    .box:hover {
-        background: #dfe6e9;
-    }
-
-    .spec {
-        margin-bottom: 20px;
-        padding: 15px;
-        background: white;
-        border-radius: 10px;
-    }
-
-    .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-    }
-
-    .gallery img {
-        width: 100%;
-        border-radius: 10px;
-        border: 1px solid #bbb;
-        cursor: pointer;
-    }
-
-    .back {
-        margin-bottom: 20px;
-        padding: 10px 15px;
-        background: #0984e3;
-        border-radius: 8px;
-        display: inline-block;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Popup fullscreen zoom */
-    #imgPopup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    #imgPopup img {
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: 10px;
-        transition: transform 0.3s;
-        cursor: zoom-in;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsip Sederhana</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<!-- ================= PAGE 1 ================= -->
-<div id="page1" class="page active">
-    <h2>Daftar PT</h2>
-
-    <div class="grid">
-        <div class="box" onclick="openPage('page2','PT A')">PT A</div>
-        <div class="box" onclick="openPage('page2','PT B')">PT B</div>
-        <div class="box" onclick="openPage('page2','PT C')">PT C</div>
-        <div class="box" onclick="openPage('page2','PT D')">PT D</div>
-        <div class="box" onclick="openPage('page2','PT E')">PT E</div>
-        <div class="box" onclick="openPage('page2','PT F')">PT F</div>
+    <h1>Arsip Sederhana</h1>
+    <div id="archive">
+        <!-- Tombol utama arsip -->
+        <button class="main-btn" onclick="showSubButtons('kategori1')">Kategori 1</button>
+        <button class="main-btn" onclick="showSubButtons('kategori2')">Kategori 2</button>
+        <!-- Tambah lebih banyak tombol utama di sini -->
     </div>
-</div>
-
-<!-- ================= PAGE 2 ================= -->
-<div id="page2" class="page">
-    <div class="back" onclick="openPage('page1')">← Kembali</div>
-    <h2 id="judulPT">PT A</h2>
-
-    <div class="grid">
-        <div class="box" onclick="openPage('page3','Boiler 1')">Boiler 1</div>
-        <div class="box" onclick="openPage('page3','Boiler 2')">Boiler 2</div>
-        <div class="box" onclick="openPage('page3','Boiler 3')">Boiler 3</div>
+    
+    <div id="sub-buttons" style="display: none;">
+        <!-- Sub-tombol akan diisi oleh JavaScript -->
     </div>
-</div>
-
-<!-- ================= PAGE 3 ================= -->
-<div id="page3" class="page">
-    <div class="back" onclick="openPage('page2')">← Kembali</div>
-    <h2 id="judulUnit">Boiler 1</h2>
-
-    <div class="spec">
-        <b>Spesifikasi:</b><br>
-        Tipe : <span id="tipe">-</span><br>
-        Model : <span id="model">-</span><br>
-        Kapasitas : <span id="kapasitas">-</span>
+    
+    <div id="photo-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="photo" src="" alt="Foto">
+            <p id="data"></p>
+        </div>
     </div>
-
-    <div class="gallery">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-        <img onclick="openImage(this.src)" src="https://via.placeholder.com/200">
-    </div>
-</div>
-
-<!-- ================= POPUP ZOOM ================= -->
-<div id="imgPopup" onclick="closeImage()">
-    <img id="popupImg" src="">
-</div>
-
-<script>
-function openPage(page, value = null) {
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.getElementById(page).classList.add("active");
-
-    if (page === "page2" && value) {
-        document.getElementById("judulPT").innerText = value;
-    }
-
-    if (page === "page3" && value) {
-        document.getElementById("judulUnit").innerText = value;
-
-        // Data contoh
-        document.getElementById("tipe").innerText = "Steam";
-        document.getElementById("model").innerText = "XYZ-109";
-        document.getElementById("kapasitas").innerText = "5000 L";
-    }
-}
-
-// Popup gambar
-function openImage(src) {
-    const popup = document.getElementById("imgPopup");
-    const img = document.getElementById("popupImg");
-
-    img.src = src;
-    popup.style.display = "flex";
-
-    currentScale = 1;
-    img.style.transform = "scale(1)";
-}
-
-function closeImage() {
-    document.getElementById("imgPopup").style.display = "none";
-}
-
-/* Zoom Scroll */
-let currentScale = 1;
-document.getElementById("popupImg").addEventListener("wheel", function (e) {
-    e.preventDefault();
-    if (e.deltaY < 0) currentScale += 0.1;
-    else currentScale = Math.max(1, currentScale - 0.1);
-    this.style.transform = `scale(${currentScale})`;
-});
-
-/* Pinch Zoom Mobile */
-let startDistance = 0;
-
-document.getElementById("imgPopup").addEventListener("touchmove", function(e){
-    if (e.touches.length === 2) {
-        let dx = e.touches[0].clientX - e.touches[1].clientX;
-        let dy = e.touches[0].clientY - e.touches[1].clientY;
-        let distance = Math.sqrt(dx*dx + dy*dy);
-
-        if (startDistance === 0) {
-            startDistance = distance;
-        } else {
-            let scale = distance / startDistance;
-            currentScale = Math.max(1, scale);
-            document.getElementById("popupImg").style.transform = `scale(${currentScale})`;
-        }
-    }
-});
-
-document.getElementById("imgPopup").addEventListener("touchend", function(){
-    startDistance = 0;
-});
-</script>
-
+    
+    <script src="script.js"></script>
 </body>
 </html>
